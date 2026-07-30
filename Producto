@@ -53,4 +53,77 @@ public class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+private void configurarVentana() {
+        setTitle("Sistema de Gestion de Productos");
+        setSize(840, 540);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(FONDO_GENERAL);
+    }
+
+    private void organizarComponentes() {
+        JLabel titulo = new JLabel("Gestion de Productos", SwingConstants.CENTER);
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 24));
+        titulo.setForeground(AZUL_TITULO);
+        titulo.setBorder(new EmptyBorder(18, 10, 8, 10));
+
+        JPanel panelFormulario = new JPanel(new GridLayout(3, 2, 10, 10));
+        panelFormulario.setBackground(FONDO_FORM);
+        panelFormulario.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(AZUL_TITULO, 1),
+                        "Datos del producto"),
+                new EmptyBorder(12, 18, 12, 18)));
+
+        JLabel lblNombre = crearEtiqueta("Nombre:");
+        JLabel lblPrecio = crearEtiqueta("Precio:");
+        JLabel lblStock = crearEtiqueta("Stock:");
+
+        estilizarCampo(txtNombre);
+        estilizarCampo(txtPrecio);
+        estilizarCampo(txtStock);
+
+        panelFormulario.add(lblNombre);
+        panelFormulario.add(txtNombre);
+        panelFormulario.add(lblPrecio);
+        panelFormulario.add(txtPrecio);
+        panelFormulario.add(lblStock);
+        panelFormulario.add(txtStock);
+
+        estilizarBoton(btnGuardar, VERDE_GUARDAR);
+        estilizarBoton(btnListar, AZUL_LISTAR);
+        estilizarBoton(btnEliminar, ROJO_ELIMINAR);
+        estilizarBoton(btnExportar, MORADO_EXPORTAR);
+
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 14, 12));
+        panelBotones.setBackground(FONDO_BOTONES);
+        panelBotones.add(btnGuardar);
+        panelBotones.add(btnListar);
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnExportar);
+
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setBackground(FONDO_GENERAL);
+        panelSuperior.add(titulo, BorderLayout.NORTH);
+        panelSuperior.add(panelFormulario, BorderLayout.CENTER);
+        panelSuperior.add(panelBotones, BorderLayout.SOUTH);
+
+        JTableHeader encabezadoTabla = tablaProductos.getTableHeader();
+        encabezadoTabla.setBackground(AZUL_TITULO);
+        encabezadoTabla.setForeground(Color.WHITE);
+        encabezadoTabla.setFont(new Font("SansSerif", Font.BOLD, 13));
+
+        JScrollPane desplazamiento = new JScrollPane(tablaProductos);
+        desplazamiento.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(8, 12, 12, 12),
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(AZUL_TITULO, 1),
+                        "Productos registrados")));
+        desplazamiento.getViewport().setBackground(Color.WHITE);
+
+        setLayout(new BorderLayout());
+        add(panelSuperior, BorderLayout.NORTH);
+        add(desplazamiento, BorderLayout.CENTER);
+    }
 }
